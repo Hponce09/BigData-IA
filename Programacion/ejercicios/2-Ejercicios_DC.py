@@ -133,3 +133,77 @@ else:
 print(acceso_por_edad)
 print(acceso_por_socio)
 print(puede_acceder)
+
+"""
+Ejercicio 6. if, elif y else: clasificación de matrícula
+- Crea las variables nota_media, renta_baja y familia_numerosa.
+- Asigna valores concretos a esas variables.
+- Crea una variable mensaje.
+- Si la nota_media es menor que 5, mensaje debe ser No admitido.
+- Si la nota_media es mayor o igual que 9, mensaje debe ser Beca completa.
+- Si la nota_media es mayor o igual que 7 y además renta_baja o familia_numerosa es True, mensaje debe ser Beca parcial.
+- Si la nota_media es mayor o igual que 5, mensaje debe ser Admitido sin beca.
+- En cualquier otro caso, mensaje debe ser Revisar solicitud.
+- Muestra por consola el valor final de mensaje.
+
+"""
+
+print("\nSolucion de ejercicio 6")
+
+nota_media = 6
+renta_baja = True
+familia_numerosa = False
+
+mensaje = ""
+
+if nota_media < 5:
+    mensaje = "No admitido"
+    print(mensaje)
+elif nota_media >= 9:
+    mensaje = "Beca completa"
+    print(mensaje)
+elif nota_media >= 7 and (renta_baja == True or familia_numerosa == True):
+    mensaje = "Beca parcial"
+    print(mensaje)
+elif nota_media >= 5:
+    mensaje = "Admitido sin beca"
+    print(mensaje)
+else:
+    mensaje = "Revisar solicitud"
+    print(mensaje)
+
+
+"""
+Ejercicio 7. Ternaria: mensaje de resultado
+- Crea una variable nota con un valor numérico.
+- Usa un condicional ternario para guardar en resultado el texto Aprobado si la nota es mayor o igual que 5, o Suspenso en caso contrario.
+- Usa otro condicional ternario para guardar en tipo_nota el texto Alta si la nota es mayor o igual que 8, o Normal en caso contrario.
+- Muestra por consola la nota, el resultado y el tipo de nota.
+
+"""
+
+print("\nSolucion de ejercicio 7")
+nota = 8
+
+resultado = "Aprobado" if nota >= 5 else "Suspenso"
+tipo_nota = "Alta" if nota >= 8 else "Normal"
+
+
+print(nota)
+print(resultado)
+print(tipo_nota)
+
+
+"""
+Ejercicio 8. match-case: menú de aplicación
+- Crea una variable opcion con un texto: crear, editar, borrar, listar u otra opción.
+- Crea una variable mensaje.
+- Usa match-case para asignar un mensaje distinto según la opción elegida.
+- Si opcion es "crear", mensaje debe ser Creando registro.
+- Si opcion es "editar", mensaje debe ser Editando registro.
+- Si opcion es "borrar", mensaje debe ser Borrando registro.
+- Si opcion es "listar", mensaje debe ser Mostrando registros.
+- Para cualquier otro valor, mensaje debe ser Opción no reconocida.
+- Muestra por consola el valor de mensaje.
+
+"""
