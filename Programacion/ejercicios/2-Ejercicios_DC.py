@@ -207,3 +207,25 @@ Ejercicio 8. match-case: menú de aplicación
 - Muestra por consola el valor de mensaje.
 
 """
+print("\nSolucion de ejercicio 8")
+
+opcion = "Borrar"
+mensaje = ""
+
+match opcion:
+
+    case "crear":
+        mensaje = "Creando registro."
+        print(mensaje)
+    case "editar":
+        mensaje = "Editando registro."
+        print(mensaje)
+    case "borrar":
+        mensaje = "Borrando registro."
+        print(mensaje)
+    case "listar":
+        mensaje = "Listando registro."
+        print(mensaje)
+    case _:
+        mensaje = "Opción no reconocida"
+        print(mensaje)
