@@ -209,7 +209,7 @@ Ejercicio 8. match-case: menú de aplicación
 """
 print("\nSolucion de ejercicio 8")
 
-opcion = "Borrar"
+opcion = "borrar"
 mensaje = ""
 
 match opcion:
@@ -229,3 +229,102 @@ match opcion:
     case _:
         mensaje = "Opción no reconocida"
         print(mensaje)
+
+
+"""
+Ejercicio 9. Caso completo: pedido online
+- Crea una lista llamada productos con tres productos.
+- Crea una lista llamada precios con tres precios, en el mismo orden que los productos.
+- Crea un diccionario llamado cliente con las claves nombre, es_socio y saldo.
+- Crea un conjunto llamado cupones_validos con tres códigos de cupón.
+- Crea una variable cupon_usado con uno de esos códigos o con un código inventado.
+- Calcula el total del pedido sumando los tres precios.
+- Crea una variable tiene_descuento que sea True si el cliente es socio o si el cupón usado está en cupones_validos.
+- Si tiene_descuento es True, calcula total_final aplicando un descuento del 10%. Si no, total_final será igual al total.
+- Si el saldo del cliente es mayor o igual que total_final, el mensaje será Pedido aceptado. En caso contrario, será Saldo insuficiente.
+- Muestra por consola el nombre del cliente, productos, total_final y mensaje.
+"""
+
+print("\nSolucion de ejercicio 9")
+productos = ["teclado","monitor","laptop"]
+precios = [30.99,84.00,729.00]
+cliente= {
+    "nombre":"juan",
+    "es_socio": False,
+    "saldo":1000
+}
+cupones_validos = {"set123","oct345","nov567"}
+cupon_usado = input("ingresa el cupon: ")
+total_final = precios[0]+precios[1]+precios[2]
+tiene_descuento = True if cliente["es_socio"] == True or cupon_usado in cupones_validos else "no eres socio o el cupon no es valido"
+
+print(tiene_descuento)
+
+if tiene_descuento == True:
+    print(f"precio sin descuento: {total_final}")
+    descuento = total_final * 0.10
+    total_final -= descuento
+    print(f"el precio con descuento por cliente socio: {total_final}")
+else:
+    print(f"precio para clientes no asociados{total_final}")
+
+if cliente["saldo"] >= total_final:
+    print("Pedido aceptado")
+else:
+    print("Saldo insuficiente")
+
+print(f"nombre: {cliente["nombre"]}")
+print(productos)
+print(f"total: {total_final}")
+
+"""
+Ejercicio 10. Caso completo: evaluación de acceso
+- Crea una tupla llamada requisitos con tres valores: edad mínima, nota mínima y si se requiere permiso.
+- Ejemplo: requisitos = (18, 6, True).
+- Crea un diccionario llamado candidato con las claves nombre, edad, nota y permiso.
+- Crea un conjunto llamado cursos_disponibles con tres cursos.
+- Crea una variable curso_elegido.
+- Crea una variable curso_existe que compruebe si curso_elegido está en cursos_disponibles.
+- Crea una variable cumple_edad comparando la edad del candidato con la edad mínima.
+- Crea una variable cumple_nota comparando la nota del candidato con la nota mínima.
+- Crea una variable cumple_permiso. Si el requisito de permiso es True, debe comprobarse el permiso del candidato. Si no se requiere permiso, debe valer True.
+- Usa if, elif y else para crear un mensaje final: Acceso concedido, Curso no disponible, No cumple requisitos o Solicitud incompleta.
+- Usa una ternaria para crear un estado breve: Apto si el mensaje final es Acceso concedido, o No apto en caso contrario.
+- Muestra por consola el nombre del candidato, el curso elegido, el estado breve y el mensaje final.
+"""
+
+print("\nSolucion de ejercicio 10")
+
+requisitos = (18,5,True)
+candidato = {
+    "nombre":"Lucas",
+    "edad":19,
+    "nota": 6,
+    "permiso":True
+}
+cursos_disponibles = {"bases de datos","programacion","pyhton"}
+curso_elegido = input("curso elegido: ")
+curso_existe = True if curso_elegido in cursos_disponibles else False
+cumple_edad = True if candidato["edad"] >= requisitos[0] else False
+cumple_nota = True if candidato["nota"] >= requisitos[1] else False
+if requisitos[2] == True:
+    if candidato["permiso"]:
+         cumple_permiso = True
+else:
+    cumple_permiso = False 
+
+if cumple_edad:
+    mensaje = "Acceso concedido"
+elif curso_existe == False:
+    mensaje = "Curso no disponible"
+elif cumple_permiso == False:
+    mensaje = "No cumple requisitos"
+else:
+    mensaje = "Solicitud incompleta"
+
+estado = "Apto" if mensaje == "Acceso concedido" else "No apto"
+print(f"nombre: {candidato["nombre"]}, curso elegido: {curso_elegido}, Estado: {estado}, mensaje:{mensaje}")
+
+
+
+
