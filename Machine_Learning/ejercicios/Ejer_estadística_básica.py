@@ -1,10 +1,6 @@
 # %%
 import pandas as pd
 
-
-
-
-
 """
 Ejercicio 1. Carga y exploración de datos
 - Carga el archivo CSV en un DataFrame llamado df.
@@ -24,7 +20,10 @@ print("Ejercicio 1\n")
 
 print(df.head())
 print(f"datos de la columna: {len(puntos)}")
-print("Cada fila muestra los datos de ese alumno (id y nombre), las horas que dedicó a estudiar (horas_estudio), la calificación obtenida en el examen (puntos_prueba), el numero de ejercicios entregados (ejercicios_entregados) y el tiempo que estubo activo en la plataforma virtual (minutos_plataforma).")
+
+# Cada fila muestra los datos de ese alumno (id y nombre), las horas que dedicó a estudiar (horas_estudio), 
+# la calificación obtenida en el examen (puntos_prueba), el numero de ejercicios entregados (ejercicios_entregados) 
+# y el tiempo que estubo activo en la plataforma virtual (minutos_plataforma).
 
 """
 Ejercicio 2. Media
@@ -54,7 +53,10 @@ media_pandas = df["puntos_prueba"].mean()
 
 print(f"Media programacion: {media_bucle}")
 print(f"Media pyhton: {media_funciones}")
-print(f"Media pandas: {media_pandas}")
+print(f"Media pandas:{media_pandas}")
+
+# La media nos muestra el rendimiento geneneral del grupo, podemos analizar el rendimiento de un 
+# alumno con respecto al la media del grupo
 
 """
 Ejercicio 3. Mediana
@@ -68,7 +70,49 @@ Pandas que puedes usar: df["puntos_prueba"].median().
 
 """
 print("\nEjercicio 3\n")
+auxiliar = 0
+# Método 1: bucle
 
+print(puntos)
+
+"""
+for i in  range(len(puntos)):
+    for j in range(i+1 ,len(puntos)):
+        if puntos[i]>puntos[j]:
+            auxiliar = puntos[j]
+            puntos[j] = puntos[i]
+            puntos[i] = auxiliar
+            
+
+print (puntos)
+
+if len(puntos) % 2 == 0:
+    
+    print(len(puntos))
+    for x in range(puntos[4],puntos[5]):
+        suma = puntos[4]+puntos[5]
+    
+    mediana_bucle = suma/2
+    print(f"Mediana por programacion: {mediana_bucle}")
+else:
+    print("impar")
+"""
+# Método 2: funciones
+
+ordenada = sorted(puntos)
+print(ordenada)
+cantida = len(puntos)
+print(f"cantidad: {cantida}")
+suma_Funcinon = ordenada[4]+ordenada[5]
+print(suma_Funcinon)
+mediana_funcion = suma_Funcinon/2
+print(f"mediana por funcion: {mediana_funcion}")
+
+# Método 3: pandas
+
+serie = pd.Series(puntos)
+mediana_pandas = serie.median()
+print(f"Mediana por pandas{mediana_pandas}")
 """
 Ejercicio 4. Moda
 - Calcula la moda de puntos_prueba con el Método 1: recorre la lista con un bucle y crea un diccionario de frecuencias.
@@ -81,6 +125,11 @@ Pandas que puedes usar: df["puntos_prueba"].mode().
 
 """
 print("\nEjercicio 4\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
 
 """
 Ejercicio 5. Desviación de cada dato respecto a la media
@@ -94,6 +143,11 @@ Pandas que puedes usar: df["desviacion"] = df["puntos_prueba"] - media.
 
 """
 print("\nEjercicio 5\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
 
 """
 Ejercicio 6. Varianza
@@ -108,6 +162,11 @@ Pandas que puedes usar: df["puntos_prueba"].var(ddof=0).
 
 """
 print("\nEjercicio 6\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
 
 """
 Ejercicio 7. Desviación estándar
@@ -121,6 +180,11 @@ Pandas que puedes usar: df["puntos_prueba"].std(ddof=0).
 
 """
 print("\nEjercicio 7\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
 
 """
 Ejercicio 8. Normalización min-max
@@ -134,6 +198,11 @@ Pandas que puedes usar: min(), max() y operaciones directas sobre columnas.
 
 """
 print("\nEjercicio 8\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
 
 """
 Ejercicio 9. Estandarización z-score
@@ -147,6 +216,11 @@ Pandas que puedes usar: mean(), std(ddof=0) y operaciones directas sobre columna
 
 """
 print("\nEjercicio 9\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
 
 """
 Ejercicio 10. Interpretación final
@@ -161,3 +235,8 @@ Ejercicio 10. Interpretación final
 
 """
 print("\nEjercicio 10\n")
+# Método 1: bucle
+
+# Método 2: funciones
+
+# Método 3: pandas
