@@ -104,7 +104,6 @@ print(ordenada)
 cantida = len(puntos)
 print(f"cantidad: {cantida}")
 suma_Funcinon = ordenada[4]+ordenada[5]
-print(suma_Funcinon)
 mediana_funcion = suma_Funcinon/2
 print(f"mediana por funcion: {mediana_funcion}")
 
@@ -126,10 +125,28 @@ Pandas que puedes usar: df["puntos_prueba"].mode().
 """
 print("\nEjercicio 4\n")
 # Método 1: bucle
+contador = {}
+
+for c in puntos:
+    if c in contador:
+        contador[c]+=1
+        
+    else:
+        contador[c]=1
+
+print(f"Moda bucle: {contador}")
 
 # Método 2: funciones
 
+print(set(puntos))
+print(puntos.count(50))
+print(max(puntos))
+
 # Método 3: pandas
+
+serie_moda= pd.Series(puntos)
+moda_pandas= serie_moda.mode()
+print(f"Moda de pandas: \n{moda_pandas}")
 
 """
 Ejercicio 5. Desviación de cada dato respecto a la media
