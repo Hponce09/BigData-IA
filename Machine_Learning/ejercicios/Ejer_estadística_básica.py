@@ -1,5 +1,12 @@
 # %%
+from pathlib import Path
 import pandas as pd
+import math
+
+
+BASE_DIR = Path(__file__).resolve().parent
+df = pd.read_csv(BASE_DIR / "datos_estadistica_alumnos.csv")
+
 
 """
 Ejercicio 1. Carga y exploración de datos
@@ -12,7 +19,6 @@ Pandas que puedes usar: read_csv(), head(), len().
 
 """
 
-df = pd.read_csv("datos_estadistica_alumnos.csv")
 puntos = list(df["puntos_prueba"])
 
 
@@ -112,6 +118,9 @@ print(f"mediana por funcion: {mediana_funcion}")
 serie = pd.Series(puntos)
 mediana_pandas = serie.median()
 print(f"Mediana por pandas{mediana_pandas}")
+
+# la mediana representa el centro de los datos por que es la que parte los datos buscando el centro por la posicion fisica
+
 """
 Ejercicio 4. Moda
 - Calcula la moda de puntos_prueba con el Método 1: recorre la lista con un bucle y crea un diccionario de frecuencias.
@@ -138,15 +147,17 @@ print(f"Moda bucle: {contador}")
 
 # Método 2: funciones
 
-print(set(puntos))
-print(puntos.count(50))
-print(max(puntos))
+moda_funcion = max(set (puntos),key = lambda x : puntos.count(x))
+print(f"Moda funciones: {moda_funcion}")
+
 
 # Método 3: pandas
 
 serie_moda= pd.Series(puntos)
 moda_pandas= serie_moda.mode()
 print(f"Moda de pandas: \n{moda_pandas}")
+
+#este valor es el que mas se repiote en los datos es la moda
 
 """
 Ejercicio 5. Desviación de cada dato respecto a la media
@@ -160,11 +171,34 @@ Pandas que puedes usar: df["desviacion"] = df["puntos_prueba"] - media.
 
 """
 print("\nEjercicio 5\n")
+
 # Método 1: bucle
 
+desviacion=0
+desviaciones_lista=[]
+
+for i in puntos:
+    desviacion = i - media_bucle
+    desviaciones_lista.append(desviacion)
+
+print(f'lista desviacion bucles: \n{desviaciones_lista}')
+
 # Método 2: funciones
+media_funciones
+
+lista_des = list(map(lambda x : x - media_funciones,puntos))
+
+print(f'lista desviacion funciones: \n{lista_des}')
+
 
 # Método 3: pandas
+media_pandas
+
+df['desviacion'] = df['puntos_prueba']-media_pandas
+
+print(f'lista desviacion pandas: \n{df}')
+
+# la desviacion nos indica cuanto se aleja un valor con repecto al valor de la media
 
 """
 Ejercicio 6. Varianza
@@ -180,10 +214,42 @@ Pandas que puedes usar: df["puntos_prueba"].var(ddof=0).
 """
 print("\nEjercicio 6\n")
 # Método 1: bucle
+contador_diferencia = 0
+contador_dato = 0
+diferencias_cuadrado = []
+for v in puntos:
+    diferencias_cuadrado.append((v-media_bucle)**2)
+    contador_dato += 1
+
+print(diferencias_cuadrado)
+print(contador_dato)
+
+for i in diferencias_cuadrado:
+    contador_diferencia += i
+
+varianza_bucle = contador_diferencia/contador_dato
+
+print(f'varianza bucle: {varianza_bucle}')
 
 # Método 2: funciones
 
+diferencia_funciones = list(map(lambda x : x **2,lista_des))
+
+suma = sum(diferencia_funciones)
+
+total_datos = len(diferencias_cuadrado)
+
+varianza_funciones = suma/total_datos
+
+print(f'varianza funciones: {varianza_funciones}')
+
 # Método 3: pandas
+ 
+varianza_pandas = df["puntos_prueba"].var(ddof=0)
+
+print(f'varianza pandas: {varianza_pandas}')
+
+# la varianza nosmuestra un valor bastante alejado de respecto a la media del grupo
 
 """
 Ejercicio 7. Desviación estándar
@@ -199,9 +265,18 @@ Pandas que puedes usar: df["puntos_prueba"].std(ddof=0).
 print("\nEjercicio 7\n")
 # Método 1: bucle
 
+desviacion_estandar_bucle = varianza_bucle**0.5
+print(f'desviacion estandar bubles: {desviacion_estandar_bucle}')
+
 # Método 2: funciones
 
+desviacion_estandar_funciones = math.sqrt(varianza_funciones)
+print(f'desviacion estandar funciones: {desviacion_estandar_funciones}')
+
 # Método 3: pandas
+
+desviacion_estandar_pandas = df["puntos_prueba"].std(ddof=0)
+print(f'desviacion estandar pandas: {desviacion_estandar_pandas}')
 
 """
 Ejercicio 8. Normalización min-max
@@ -216,10 +291,46 @@ Pandas que puedes usar: min(), max() y operaciones directas sobre columnas.
 """
 print("\nEjercicio 8\n")
 # Método 1: bucle
+min_bucle = 999
+max_bucle = 0
+dato_r = 0 
+
+resultado=[]
+
+for i in puntos:
+    if min_bucle > i:
+        min_bucle = i
+    elif max_bucle < i:
+        max_bucle = i
+
+#print(f"maximo: {min_bucle}\nminimo: {max_bucle}")
+
+for i in puntos:
+    dato_r = (i - min_bucle) / (max_bucle - min_bucle)
+    resultado.append(dato_r)
+
+print(f'bucle\n{resultado}')
+
 
 # Método 2: funciones
 
+min_funciones = min(puntos)
+max_funciones = max(puntos)
+
+resultado_funciones = list(map((lambda x:(x - min_funciones)/(max_funciones - min_funciones)),puntos))
+print(f'funciones:\n{resultado_funciones}')
+
+#print(f'minimo funciones: {min_funciones}\nmax funciones: {max_funciones}')
+
 # Método 3: pandas
+min_pandas = df['puntos_prueba'].min()
+
+max_pandas = df['puntos_prueba'].max()
+
+#print(f'minimo pandas: {min_pandas}\nmaximo: {max_pandas}')
+
+df['puntos_normalizados'] = (df['puntos_prueba'] - min_pandas)/(max_pandas - min_pandas)
+print(f'pandas\n{df}')
 
 """
 Ejercicio 9. Estandarización z-score
