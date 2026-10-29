@@ -108,7 +108,7 @@ alumno = {
     "edad": 17,
     "curso": "IA",
     "nota_media":8.5,
-    "faltas":12
+    "faltas":16
 }
 
 for a in alumno.items():
@@ -119,10 +119,12 @@ if alumno["nota_media"] >= 5:
     print(f"{aprSus}")
 
 if alumno["faltas"] > 10:
-    aviso=f"Las faltas superan el rango establecido {alumno['faltas']}"
-    print(f"Las faltas superan el rango establecido {alumno['faltas']}")
+    aviso=f",Las faltas superan el rango establecido {alumno['faltas']}"
+    #print(f"{aviso}")
+else:
+    aviso =f''
 
-print(f"el alumno {aprSus}, pero {aviso}")
+print(f"el alumno {aprSus} {aviso}")
 
 
 
