@@ -157,7 +157,7 @@ serie_moda= pd.Series(puntos)
 moda_pandas= serie_moda.mode()
 print(f"Moda de pandas: \n{moda_pandas}")
 
-#este valor es el que mas se repiote en los datos es la moda
+#este valor es el que mas se repite en los datos es la moda
 
 """
 Ejercicio 5. Desviación de cada dato respecto a la media
@@ -278,6 +278,8 @@ print(f'desviacion estandar funciones: {desviacion_estandar_funciones}')
 desviacion_estandar_pandas = df["puntos_prueba"].std(ddof=0)
 print(f'desviacion estandar pandas: {desviacion_estandar_pandas}')
 
+#La desviación estándar utiliza las mismas unidades originales de los datos, a diferencia 
+#de la varianza, cuyas unidades están elevadas al cuadrado y resultan imprecisas
 """
 Ejercicio 8. Normalización min-max
 - Calcula el mínimo y el máximo de puntos_prueba.
@@ -332,6 +334,10 @@ max_pandas = df['puntos_prueba'].max()
 df['puntos_normalizados'] = (df['puntos_prueba'] - min_pandas)/(max_pandas - min_pandas)
 print(f'pandas\n{df}')
 
+# 0.0 = Significa que ese elemento era el valor mínimo absoluto de toda la lista original.
+# 0.5 = Significa que ese valor está exactamente a mitad de camino entre el peor y el mejor resultado.
+# 1.0 = Significa que ese elemento era el valor máximo absoluto de toda la lista original.
+
 """
 Ejercicio 9. Estandarización z-score
 - Calcula la media y la desviación estándar de puntos_prueba.
@@ -345,10 +351,27 @@ Pandas que puedes usar: mean(), std(ddof=0) y operaciones directas sobre columna
 """
 print("\nEjercicio 9\n")
 # Método 1: bucle
+z_score_bucle = []
+z = 0
+for i in puntos:
+    z = (i - media_bucle)/desviacion_estandar_bucle
+    z_score_bucle.append(z)
+
+print(f"\nEstandarización z-score por medio de bucles:\n{z_score_bucle}")
 
 # Método 2: funciones
 
+z_score_funciones = list(map((lambda x : (x - media_funciones)/desviacion_estandar_funciones),puntos))
+print(f"\nEstandarización z-score por medio de funciones:\n{z_score_funciones}")
+
 # Método 3: pandas
+
+df['puntos_estandarizados'] = (puntos - media_pandas)/desviacion_estandar_pandas
+print(df)
+
+#Si el Z-score es positivo, significa que ese valor está por encima de la media.
+#Si el Z-score es negativo, significa que ese valor está por debajo de la media.
+#Un Z-score de 0 exacto significa que el dato está exactamente en la media.
 
 """
 Ejercicio 10. Interpretación final
@@ -364,7 +387,38 @@ Ejercicio 10. Interpretación final
 """
 print("\nEjercicio 10\n")
 # Método 1: bucle
+print('bucle')
+for i,v in enumerate(puntos):
+    if v > media_bucle:
+        nombre=df.iloc[i]['nombre']
+        print(f'\nalumno por encima de la media: {nombre}')
+
+for i,v in enumerate(puntos):
+    if v < media_bucle:
+        nombre=df.iloc[i]['nombre']
+        print(f'\nalumno por debajo de la media: {nombre}')        #print(i)
+
 
 # Método 2: funciones
+print('funciones')
+media_mayor = list(filter(lambda x: (x > media_funciones), puntos))
+print(f'por encima de la media: \n{media_mayor}')
+
+media_menor = list(filter(lambda x: (x < media_funciones), puntos))
+print(f'por debajo de la media: \n{media_menor}')
 
 # Método 3: pandas
+
+print('pandas')
+
+df_filtrado_mayor = df[df['puntos_prueba'] > media_pandas]
+print(df_filtrado_mayor)
+
+df_filtrado_menor = df[df['puntos_prueba'] < media_pandas]
+print(df_filtrado_menor)
+
+normalizado_alto = df.loc[df["puntos_normalizados"].idxmax()]['nombre']
+print(f'alumno tienen el valor normalizado más alto: {normalizado_alto}')
+
+normalizado_bajo = df.loc[df["puntos_normalizados"].idxmin()]['nombre']
+print(f'alumno tienen el valor normalizado más bajo: {normalizado_bajo}')
